@@ -1,0 +1,57 @@
+@media screen and (min-width: 768px) {
+	#atuacao, #noticias, #contato, #missao, #banner, #perfilEgresso{
+		min-height: 100vh;
+	}
+    .padding-modificado{
+        padding-top: 16vh;
+        padding-bottom: 16vh;
+    }
+}
+#img-menu {
+    max-width: 150px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    color: white;
+}
+.bg-blue{
+    background-color: #2b74bd;
+}
+.nav-item{
+    font-size: 18px;
+}
+.nav-link{
+    color: rgb(255,255,255) !important;
+}
+.nav-link:hover, .nav-link:focus{
+    background-color: #2da0ed;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+}
+.bg-blue-light{
+    background-color: #2d8fdc;
+}
+.bg-blue-alpha{
+    background-color: rgba(45, 143, 220, 0.5);
+}
+.bg-blue-new{
+    background-color: #c2d5ff;
+}
+.margin-botttom-10{
+    margin-bottom: 20px;
+}
+.bg-gray{
+    background-color: #748efe;
+}
+.card{
+    margin-bottom: 20px;
+}
+@media screen and (max-width: 768px) {
+    .margin-top-alinhamento{
+        margin-top: 10px;
+    }
+}
+.color-white{
+    color: white;
+}

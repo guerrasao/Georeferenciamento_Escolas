@@ -7,6 +7,10 @@
         padding-bottom: 16vh;
     }
 }
+#map {
+    min-height: 400px;
+    min-width: 320px;
+}
 #img-menu {
     max-width: 150px;
     -webkit-border-radius: 12px;

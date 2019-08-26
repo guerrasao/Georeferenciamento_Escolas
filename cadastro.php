@@ -1,33 +1,50 @@
 <?php
 $titulo = "Cadastro";
 include_once "cabecalho.ui.php";
+include_once "manipulacao.php";
 ?>
 <section id="contato" class="controlePadding bg-blue-alpha">
     <div class="container">
         <h1 class="text-center mb-4 p-4">
             Cadastro de Escolas
         </h1>
+        <?php
+        if (isset($_POST['enviar'])){
+            $nome = $_POST['nome'];
+            $latitude = $_POST['latitude'];
+            $logitude = $_POST['longitude'];
+            $valores = array($nome,$latitude,$logitude);
+            $result = inserirSemId("Escola",vetorToString($valores));
+            if($result){
+                echo "<div class='alert alert-success' role='alert'>
+                        Sucesso: A escola ".$nome." foi cadastrada com sucesso!</div>";
+            }else{
+                echo "<div class='alert alert-danger' role='alert'>
+                        Erro: A escola não foi cadastrada!</div>";
+            }
+        }
+        ?>
         <div class="row align-items-baseline">
             <div class="col-sm-12 col-md-6">
                 <div class="list-group mb-3">
                     <a class="list-group-item list-group-item-action active text-white font-weight-bold">
                         Dados da Escola:
                     </a>
-                    <form class="list-group-item">
+                    <form class="list-group-item" method="post" action="">
                         <div class="form-group">
                             <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" placeholder="Nome" required>
+                            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome" required>
                         </div>
                         <div class="form-group">
                             <label for="latitude">Latitude</label>
-                            <input type="text" class="form-control" id="latitude" placeholder="Latitude" required>
+                            <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude" required>
                         </div>
                         <div class="form-group">
                             <label for="longitude">Longitude</label>
-                            <input type="text" class="form-control" id="longitude" placeholder="Longitude" required>
+                            <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude" required>
                         </div>
                         <button type="button" class="btn btn-primary" onclick="initialize();">Localizar Cordenadas no Mapa</button>
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                        <button type="submit" class="btn btn-success" name="enviar" value="true">Cadastrar</button>
                     </form>
                 </div>
             </div>
@@ -110,5 +127,5 @@ include_once "cabecalho.ui.php";
     }
 </script>
 <?php
-include_once "rodape.ui.php";
+    include_once "rodape.ui.php";
 ?>

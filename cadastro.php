@@ -14,7 +14,7 @@ include_once "manipulacao.php";
             $latitude = $_POST['latitude'];
             $logitude = $_POST['longitude'];
             $valores = array($nome,$latitude,$logitude);
-            $result = inserirSemId("Escola",vetorToString($valores));
+            $result = inserirSemId("escola",vetorToString($valores));
             if($result){
                 echo "<div class='alert alert-success' role='alert'>
                         Sucesso: A escola ".$nome." foi cadastrada com sucesso!</div>";

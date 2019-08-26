@@ -11,7 +11,7 @@
         <div id="map" class="mb-5"></div>
     <div class="row align-items-center">
         <?php
-        $resultA = consultarAll("Escola");
+        $resultA = consultarAll("escola");
         if($resultA != null) {
             $j = 0;
             while ($atual1 = mysqli_fetch_assoc($resultA)) {
@@ -76,7 +76,7 @@
     }
     var locations = [
         <?php
-        $result = consultarAll("Escola");
+        $result = consultarAll("escola");
         if($result != null) {
             while ($atual = mysqli_fetch_assoc($result)) {
                 echo '{lat: '."$atual[latitude]".', lng: '."$atual[longitude]".'},';

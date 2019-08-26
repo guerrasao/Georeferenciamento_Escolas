@@ -1,6 +1,6 @@
 @media screen and (min-width: 768px) {
 	#atuacao, #noticias, #contato, #missao, #banner, #perfilEgresso{
-		min-height: 100vh;
+		min-height: 85vh;
 	}
     .padding-modificado{
         padding-top: 16vh;

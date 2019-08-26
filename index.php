@@ -3,22 +3,23 @@
     include_once "cabecalho.ui.php";
     include_once "manipulacao.php";
 ?>
-<section id="lista_escolas_individuais" class="controlePadding bg-blue-alpha">
+<section id="lista_escolas_individuais" class="pt-5 pb-5 bg-blue-alpha">
     <div class="container">
-        <h1 class="text-center margin-botttom-10">
+        <h1 class="text-center pb-5">
             Lista de Escolas Georeferenciadas
         </h1>
-        <div id="map" class="margin-botttom-10"></div>
+        <div id="map" class="mb-5"></div>
     <div class="row align-items-center">
         <?php
         $resultA = consultarAll("Escola");
         if($resultA != null) {
+            $j = 0;
             while ($atual1 = mysqli_fetch_assoc($resultA)) {
                 echo '
                     <div class="col-sm-12 col-md-4 margin-top-alinhamento">
                         <div class="card atuacao-coluna margin-top-alinhamento">
                             <div class="card-header font-weight-bold">
-                                '.$atual1['nome'].'
+                                '.($j+1).' - '.$atual1['nome'].'
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Latitude: '.$atual1['latitude'].'</li>
@@ -27,6 +28,7 @@
                         </div>
                     </div>
                 ';
+                $j++;
             }
         }
         ?>
@@ -39,13 +41,22 @@
     function initMap() {
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 7,
+            zoom: 10,
             center: {lat: -27.357680716325305, lng: -53.39662313461304},
             mapTypeId: google.maps.MapTypeId.SATELLITE
         });
 
         // Create an array of alphabetical characters used to label the markers.
-        var posicoes = {};
+        var posicoes = [
+        <?php
+            if($resultA != null ){
+                $max = mysqli_num_rows($resultA);
+                for ($i=0;$i<$max;$i++){
+                    echo '\''.($i+1).'\',';
+                }
+            }
+        ?>
+        ];
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         // Add some markers to the map.
@@ -55,7 +66,7 @@
         var markers = locations.map(function(location, i) {
             return new google.maps.Marker({
                 position: location,
-                label: labels[i % labels.length]
+                label: posicoes[i]
             });
         });
 
@@ -79,5 +90,5 @@
 </script>
 
 <?php
-include_once "rodape.ui.php";
+    include_once "rodape.ui.php";
 ?>

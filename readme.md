@@ -28,7 +28,6 @@ MySQL Workbench = 6.3
 ### Bibliotecas Externas Utilizadas
 
 ```
-
 Google Maps API
 Google markerclusterer
 open-iconic-master

@@ -13,13 +13,12 @@
         <?php
         $resultA = consultarAll("escola");
         if($resultA != null) {
-            $j = 0;
             while ($atual1 = mysqli_fetch_assoc($resultA)) {
                 echo '
                     <div class="col-sm-12 col-md-4 margin-top-alinhamento">
                         <div class="card atuacao-coluna margin-top-alinhamento">
                             <div class="card-header font-weight-bold">
-                                '.($j+1).' - '.$atual1['nome'].'
+                                '.$atual1['nome'].'
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Latitude: '.$atual1['latitude'].'</li>
@@ -28,7 +27,6 @@
                         </div>
                     </div>
                 ';
-                $j++;
             }
         }
         ?>
@@ -46,44 +44,41 @@
             mapTypeId: google.maps.MapTypeId.SATELLITE
         });
 
-        // Create an array of alphabetical characters used to label the markers.
-        var posicoes = [
-        <?php
-            if($resultA != null ){
-                $max = mysqli_num_rows($resultA);
-                for ($i=0;$i<$max;$i++){
-                    echo '\''.($i+1).'\',';
+        var locations = [
+            <?php
+            $result = consultarAll("escola");
+            $nomes = "";
+            if($result != null) {
+                while ($atual = mysqli_fetch_assoc($result)) {
+                    echo '{lat: '."$atual[latitude]".', lng: '."$atual[longitude]".'},';
+                    $nomes.= '\''.$atual['nome'].'\',';
                 }
             }
-        ?>
+            $nomes = substr($nomes, 0, -1);
+            ?>
         ];
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-        // Add some markers to the map.
-        // Note: The code uses the JavaScript Array.prototype.map() method to
-        // create an array of markers based on a given "locations" array.
-        // The map() method here has nothing to do with the Google Maps API.
-        var markers = locations.map(function(location, i) {
-            return new google.maps.Marker({
-                position: location,
-                label: posicoes[i]
-            });
-        });
-
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'markerclusterer/images/m'});
-    }
-    var locations = [
         <?php
-        $result = consultarAll("escola");
-        if($result != null) {
-            while ($atual = mysqli_fetch_assoc($result)) {
-                echo '{lat: '."$atual[latitude]".', lng: '."$atual[longitude]".'},';
-            }
-        }
+            echo 'var secretMessages = ['.$nomes.'];';
         ?>
-    ];
+
+        for (var i = 0; i < secretMessages.length; ++i) {
+            var marker = new google.maps.Marker({
+                position: locations[i],
+                map: map
+            });
+            attachSecretMessage(marker, secretMessages[i]);
+        }
+        function attachSecretMessage(marker, secretMessage) {
+            var infowindow = new google.maps.InfoWindow({
+                content: secretMessage
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(marker.get('map'), marker);
+            });
+        }
+    }
     window.onload = function(){
         initMap();
     }
